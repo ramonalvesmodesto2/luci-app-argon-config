@@ -1,9 +1,23 @@
 name: Release
 
 on:
+  repository_dispatch:
+  workflow_dispatch:
+    inputs:
+      ssh:
+        description: 'SSH connection to Actions'
+        required: false
+        default: 'false'
   push:
+    branches:
+      - master
     tags:
       - 'release-*'
+    paths:
+      - 'luci-app-argon-config/**'
+  pull_request:
+    branches:
+      - master
 
 jobs:
   build:
